@@ -1,8 +1,9 @@
-<html>
-<body>
-<!--StartFragment--><p>The <code>XPgDetComponent</code> is a key component within the XUI framework that enables the creation of editable detail pages. This component allows users to modify specific entity details through an intuitive and dynamic interface.</p>
-<h2>Code Structure:</h2>
-<pre><code class="language-jsx">this.component = XPgDetComponent;
+The `XPgDetComponent` is a key component within the XUI framework that enables the creation of editable detail pages. This component allows users to modify specific entity details through an intuitive and dynamic interface.
+
+## Code Structure:
+
+```jsx
+this.component = XPgDetComponent;
 this.injector = Injector.create({
 providers: [
 {
@@ -12,94 +13,82 @@ useValue: new XPgDetailsParam(xpgDetailsPageConfig),
 ],
 parent: this.inj,
 });
-</code></pre>
-<p><strong>Component Assignment</strong>:</p>
-<ul>
-<li><code>this.component = XPgDetComponent;</code> sets the component type to <code>XPgDetComponent</code>, indicating that this is the component to be rendered for displaying and editing details.</li>
-</ul>
-<p><strong>Injector Creation</strong>:</p>
-<ul>
-<li>
-<p>An <code>Injector</code> instance is created to provide dependencies for the <code>XPgDetComponent</code>.</p>
-</li>
-<li>
-<p><strong>Providers</strong>:</p>
-<ul>
-<li>A provider is defined to supply an instance of <code>XPgDetailsParamProvider</code> using the <code>XPgDetailsParam</code> class, which is initialized with <code>xpgDetailsPageConfig</code>. This allows the <code>XPgDetComponent</code> to access configuration and parameters necessary for its operation.</li>
-</ul>
-</li>
-<li>
-<p><strong>XPgDetailsParamProvider</strong>:</p>
-<ul>
-<li>An abstract class used as a base for providing details page parameters. It holds the <code>xpgDetailsPageConfig</code> object, which contains configuration settings and callbacks for the detail page.</li>
-</ul>
-<p><strong>XPgDetailsParam</strong>:</p>
-<ul>
-<li>A concrete class extending <code>XPgDetailsParamProvider</code>. It provides a specific implementation of the <code>XPgDetailsParamProvider</code> service, initialized with <code>xpgDetailsPageConfig</code>. This class is used to pass configuration details to the component.</li>
-</ul>
-<p><strong>XpgDetailsPageConfig</strong>:</p>
-<ul>
-<li>An interface defining the structure and properties required for configuring the details page. It includes various settings such as <code>entityName</code>, <code>columns</code>, <code>onInit</code>, <code>close</code>, <code>save</code>, and several other optional properties. This interface is used to set up the detail page and control its behavior within the <code>XPgDetComponent</code>.</li>
-</ul>
-</li>
-</ul>
-<h2>Properties of xpgDetailsPageConfig:</h2>
+```
 
-Property | Type | Function
--- | -- | --
-entityName | string | Specifies the entity the component will interact with. It is used to determine the appropriate backend API endpoints for data fetching.
-orgPageMode | PageMode | Represents the original page mode. It is used to store and determine the initial state of the page mode, which can be critical for maintaining consistent behavior when the page is first loaded or revisited. Typically set to values like 'read' or 'create', it serves as a reference point for conditional logic throughout the page lifecycle.
-pageMode | PageMode | This property reflects the current mode of the page, which can be dynamically updated based on various conditions and user interactions. It ensures that the UI correctly adapts to the current state, whether it needs to be in 'read', 'create', or any other mode.
-id | string | - -
-item | ItemEntityDto<string> | Represents the data object for the component. In this context, ItemEntityDto<string> is a generic DTO that includes properties and methods for managing the item data. It can be used to pass data into the component and access various item-related functionalities within the component.
-columns | Property[] | Defines an array of Property objects that specify additional configurations and customizations for each property of the entity to be displayed as a column. This includes specifying custom templates (cellTemplate), custom names (name), and other configurations like hiding columns (hidden).
-onInit | (instance?: any) => void | A callback function that is executed when the component is initialized. It provides access to the component instance, allowing for custom initialization logic
-close | (refresh?: boolean, message?: Message) => void | Defines a callback function to be executed when closing the component or page. The refresh parameter indicates whether the data should be refreshed after closing, and the message parameter can be used to pass any specific messages to be displayed or processed.
-onBeforeSave | (stayafter?: boolean, callback?: any) => void | Function executed before saving the current state. It handles pre-save logic, such as setting processing states or triggering additional actions like permission submission. Ensures that necessary conditions or processes are met before the actual save operation is performed.
-save | (row: any, message?: Message, refresh?: boolean) => void | - -
-onAfterSave | (nItem: ItemEntityDto<string>, resultMsg: string, stayafter: boolean) => void | This function is invoked after the save operation has completed. It performs necessary post-save actions such as displaying a success message, refreshing the relevant components, and updating the page mode to 'update'. It ensures that the UI reflects the new state of the saved item and provides feedback to the user.
-onItemSave | (activeTab: any, result: XFormResult) => void | Function executed upon saving an item. It handles post-save logic, such as refreshing the page or navigating to a specific tab. Ensures that the UI is updated and the item save process is completed smoothly.
-onTabLoaded | (tabItem: any) => void | Function executed when a tab is loaded. It handles post-load logic specific to the tab, such as triggering additional actions or navigating to specific elements. Ensures that necessary operations are performed once the tab is fully loaded.
-editProperties | Property[] | Array of Property objects that define the editable properties of a form. It includes properties and their configurations, such as visibility and editability, which can be dynamically modified based on user actions or other conditions.
-_onLoad | (instance?: any) => void | - -
-menuMode | 'top' 'left' | An  property that specifies the position of the menu items. It can be set to either 'top' or 'left', indicating whether the menu should be displayed at the top or on the left side of the component.
-breadcrumbItems | MenuItem[] | A array of menu items that represent the breadcrumb navigation. Breadcrumb items are typically displayed at the top of the page, showing the user's current location within the application and allowing navigation to previous pages. Each MenuItem can have properties such as label, icon, command, and more, to define its appearance and behavior.
-breadcrumbAfter | TemplateRef<any> | Template reference for content to be displayed after the breadcrumb section in the UI. It allows for additional components or information to be shown alongside or following the breadcrumb navigation.
-formContentTpl | TemplateRef<any> | - -
-headerTpl | TemplateRef<any> | A template reference that defines the custom header content for the component. This template can include any HTML or Angular components and is typically used to customize the appearance and functionality of the header section of a list, table, or page.
-afterTemplate | TemplateRef<any> | - -
-rightTpl | TemplateRef<any> | A template reference that defines custom content to be displayed on the right side of the component. This template can be used to render specific sections or details, such as a preview pane, additional information, or a custom layout for data presentation.
-afterFooterBtn | TemplateRef<any> | Template reference for custom content or buttons to be displayed after the main footer area. This can include actions like "Submit" that are context-sensitive and appear only when certain conditions are met, such as when the form is not in read-only mode. It provides additional functionality relevant to the user’s current interaction.
-beforeFooterBtn | TemplateRef<any> | Template reference for custom content or buttons to be displayed before the main footer area. It allows for conditional controls or information to be presented based on the state of the page, such as showing cancellation options or status-specific buttons before the footer. This enhances user interaction by offering relevant actions in the appropriate context.
-arrayFooterBtn | TemplateRef<any> | Template reference for custom footer buttons or content to be displayed at the bottom of the page. It allows for dynamic and context-specific actions, such as navigation or additional controls, to be included in the footer area based on the page mode or other conditions. This enhances user interaction by providing relevant functionality in a consistent footer layout.
-formBeforeTpl | TemplateRef<any> | Defines the template for content displayed before the main form. Used to provide preliminary instructions or information relevant to the form.
-formAfterTpl | TemplateRef<any> | Specifies the template for content displayed after the main form. Used for displaying additional actions or messages, such as consent or confirmation.
-formRightTpl | TemplateRef<any> | Indicates the template for content displayed to the right of the main form. Used for supplementary components or information that complements the form.
-parentEntity | string | Specifies the entity name of the parent item.
-parentId | string | Holds the identifier of the parent item.
-parentPageMode | PageMode | Specifies the mode of the parent page, which can be 'create', 'update', or 'read'.
-parentItem | any | Holds the entire parent item object.
-enableWatchList | boolean | Option to enable watch list.
-disableTabs | boolean | - -
-disableGeneralTab | boolean | Option to disable the general tab.
-batchSave | boolean | Option to enable batch save.+
-refresh | () => void | Optional function to refresh the page.+
-gotoRead | (row: any) => void | - -
-disableConcurrency | boolean | This boolean property controls whether concurrency checks are enforced during data operations. Setting it to true disables concurrency control, allowing multiple processes or users to modify the data simultaneously without triggering conflicts or locks.
-hidePrevNext | boolean | Option to hide previous and next buttons.
-hideSaveStay | boolean | Option to hide the save and stay button.
-saveLabel | string | Optional label for the save button.
-saveIcon | string | Optional icon for the save button.
-hideSave | boolean | Option to hide the save button.
+**Component Assignment**:
 
+- `this.component = XPgDetComponent;` sets the component type to `XPgDetComponent`, indicating that this is the component to be rendered for displaying and editing details.
 
-<h2>Output:</h2>
-<p>In the example below, you can see the Veson IMOS Config page where the <code>XPgDetComponent</code> is utilized. This component provides a detailed view that allows users to edit the configuration data.</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/974f9e60-2d10-4518-be8e-2d119cfceb57/09098713-36fe-4b0d-afc0-425f6d8a1863/Untitled.png" alt="Untitled"></p>
-<ul>
-<li>The <code>XPgDetComponent</code> is used for creating editable detail pages in the application. Unlike read-only components, the <code>XPgDetComponent</code> allows for user interaction to update and save changes to the data. In this context, it is specifically used in the Veson IMOS Config page to manage configurations such as client information, API tokens, and other settings.</li>
-<li>When a user clicks the edit button, the <code>XPgDetComponent</code> is loaded, providing a form-like interface to modify details. This component handles the display of various properties, enforces validation, and processes the save operations.</li>
-</ul>
-<!-- notionvc: c54166d9-2e6d-45f3-9588-03e45784c9a5 --><!--EndFragment-->
-</body>
-</html>
+**Injector Creation**:
+
+- An `Injector` instance is created to provide dependencies for the `XPgDetComponent`.
+- **Providers**:
+    - A provider is defined to supply an instance of `XPgDetailsParamProvider` using the `XPgDetailsParam` class, which is initialized with `xpgDetailsPageConfig`. This allows the `XPgDetComponent` to access configuration and parameters necessary for its operation.
+- **XPgDetailsParamProvider**:
+    - An abstract class used as a base for providing details page parameters. It holds the `xpgDetailsPageConfig` object, which contains configuration settings and callbacks for the detail page.
+    
+    **XPgDetailsParam**:
+    
+    - A concrete class extending `XPgDetailsParamProvider`. It provides a specific implementation of the `XPgDetailsParamProvider` service, initialized with `xpgDetailsPageConfig`. This class is used to pass configuration details to the component.
+    
+    **XpgDetailsPageConfig**:
+    
+    - An interface defining the structure and properties required for configuring the details page. It includes various settings such as `entityName`, `columns`, `onInit`, `close`, `save`, and several other optional properties. This interface is used to set up the detail page and control its behavior within the `XPgDetComponent`.
+
+## Properties of xpgDetailsPageConfig:
+
+| Property | Type | Function |
+| --- | --- | --- |
+| entityName | string | Specifies the entity the component will interact with. It is used to determine the appropriate backend API endpoints for data fetching. |
+| orgPageMode | PageMode | Represents the original page mode. It is used to store and determine the initial state of the page mode, which can be critical for maintaining consistent behavior when the page is first loaded or revisited. Typically set to values like 'read' or 'create', it serves as a reference point for conditional logic throughout the page lifecycle. |
+| pageMode | PageMode | This property reflects the current mode of the page, which can be dynamically updated based on various conditions and user interactions. It ensures that the UI correctly adapts to the current state, whether it needs to be in 'read', 'create', or any other mode. |
+| id | string | - - |
+| item | ItemEntityDto<string> | Represents the data object for the component. In this context, ItemEntityDto<string> is a generic DTO that includes properties and methods for managing the item data. It can be used to pass data into the component and access various item-related functionalities within the component. |
+| columns | Property[] | Defines an array of Property objects that specify additional configurations and customizations for each property of the entity to be displayed as a column. This includes specifying custom templates (cellTemplate), custom names (name), and other configurations like hiding columns (hidden). |
+| onInit | (instance?: any) => void | A callback function that is executed when the component is initialized. It provides access to the component instance, allowing for custom initialization logic |
+| close | (refresh?: boolean, message?: Message) => void | Defines a callback function to be executed when closing the component or page. The refresh parameter indicates whether the data should be refreshed after closing, and the message parameter can be used to pass any specific messages to be displayed or processed. |
+| onBeforeSave | (stayafter?: boolean, callback?: any) => void | Function executed before saving the current state. It handles pre-save logic, such as setting processing states or triggering additional actions like permission submission. Ensures that necessary conditions or processes are met before the actual save operation is performed. |
+| save | (row: any, message?: Message, refresh?: boolean) => void | - - |
+| onAfterSave | (nItem: ItemEntityDto<string>, resultMsg: string, stayafter: boolean) => void | This function is invoked after the save operation has completed. It performs necessary post-save actions such as displaying a success message, refreshing the relevant components, and updating the page mode to 'update'. It ensures that the UI reflects the new state of the saved item and provides feedback to the user. |
+| onItemSave | (activeTab: any, result: XFormResult) => void | Function executed upon saving an item. It handles post-save logic, such as refreshing the page or navigating to a specific tab. Ensures that the UI is updated and the item save process is completed smoothly. |
+| onTabLoaded | (tabItem: any) => void | Function executed when a tab is loaded. It handles post-load logic specific to the tab, such as triggering additional actions or navigating to specific elements. Ensures that necessary operations are performed once the tab is fully loaded. |
+| editProperties | Property[] | Array of Property objects that define the editable properties of a form. It includes properties and their configurations, such as visibility and editability, which can be dynamically modified based on user actions or other conditions. |
+| _onLoad | (instance?: any) => void | - - |
+| menuMode | 'top' 'left' | An  property that specifies the position of the menu items. It can be set to either 'top' or 'left', indicating whether the menu should be displayed at the top or on the left side of the component. |
+| breadcrumbItems | MenuItem[] | A array of menu items that represent the breadcrumb navigation. Breadcrumb items are typically displayed at the top of the page, showing the user's current location within the application and allowing navigation to previous pages. Each MenuItem can have properties such as label, icon, command, and more, to define its appearance and behavior. |
+| breadcrumbAfter | TemplateRef<any> | Template reference for content to be displayed after the breadcrumb section in the UI. It allows for additional components or information to be shown alongside or following the breadcrumb navigation. |
+| formContentTpl | TemplateRef<any> | - - |
+| headerTpl | TemplateRef<any> | A template reference that defines the custom header content for the component. This template can include any HTML or Angular components and is typically used to customize the appearance and functionality of the header section of a list, table, or page. |
+| afterTemplate | TemplateRef<any> | - - |
+| rightTpl | TemplateRef<any> | A template reference that defines custom content to be displayed on the right side of the component. This template can be used to render specific sections or details, such as a preview pane, additional information, or a custom layout for data presentation. |
+| afterFooterBtn | TemplateRef<any> | Template reference for custom content or buttons to be displayed after the main footer area. This can include actions like "Submit" that are context-sensitive and appear only when certain conditions are met, such as when the form is not in read-only mode. It provides additional functionality relevant to the user’s current interaction. |
+| beforeFooterBtn | TemplateRef<any> | Template reference for custom content or buttons to be displayed before the main footer area. It allows for conditional controls or information to be presented based on the state of the page, such as showing cancellation options or status-specific buttons before the footer. This enhances user interaction by offering relevant actions in the appropriate context. |
+| arrayFooterBtn | TemplateRef<any> | Template reference for custom footer buttons or content to be displayed at the bottom of the page. It allows for dynamic and context-specific actions, such as navigation or additional controls, to be included in the footer area based on the page mode or other conditions. This enhances user interaction by providing relevant functionality in a consistent footer layout. |
+| formBeforeTpl | TemplateRef<any> | Defines the template for content displayed before the main form. Used to provide preliminary instructions or information relevant to the form. |
+| formAfterTpl | TemplateRef<any> | Specifies the template for content displayed after the main form. Used for displaying additional actions or messages, such as consent or confirmation. |
+| formRightTpl | TemplateRef<any> | Indicates the template for content displayed to the right of the main form. Used for supplementary components or information that complements the form. |
+| parentEntity | string | Specifies the entity name of the parent item. |
+| parentId | string | Holds the identifier of the parent item. |
+| parentPageMode | PageMode | Specifies the mode of the parent page, which can be 'create', 'update', or 'read'. |
+| parentItem | any | Holds the entire parent item object. |
+| enableWatchList | boolean | Option to enable watch list. |
+| disableTabs | boolean | - - |
+| disableGeneralTab | boolean | Option to disable the general tab. |
+| batchSave | boolean | Option to enable batch save.+ |
+| refresh | () => void | Optional function to refresh the page.+ |
+| gotoRead | (row: any) => void | - - |
+| disableConcurrency | boolean | This boolean property controls whether concurrency checks are enforced during data operations. Setting it to true disables concurrency control, allowing multiple processes or users to modify the data simultaneously without triggering conflicts or locks. |
+| hidePrevNext | boolean | Option to hide previous and next buttons. |
+| hideSaveStay | boolean | Option to hide the save and stay button. |
+| saveLabel | string | Optional label for the save button. |
+| saveIcon | string | Optional icon for the save button. |
+| hideSave | boolean | Option to hide the save button. |
+
+## Output:
+
+In the example below, you can see the Veson IMOS Config page where the `XPgDetComponent` is utilized. This component provides a detailed view that allows users to edit the configuration data.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/974f9e60-2d10-4518-be8e-2d119cfceb57/09098713-36fe-4b0d-afc0-425f6d8a1863/Untitled.png)
+
+- The `XPgDetComponent` is used for creating editable detail pages in the application. Unlike read-only components, the `XPgDetComponent` allows for user interaction to update and save changes to the data. In this context, it is specifically used in the Veson IMOS Config page to manage configurations such as client information, API tokens, and other settings.
+- When a user clicks the edit button, the `XPgDetComponent` is loaded, providing a form-like interface to modify details. This component handles the display of various properties, enforces validation, and processes the save operations.
